@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid ft-outfit">
     <div class="row bg-secondary">
         <div class="col-md-12 text-white">
             <a routerLink="/inicio" class="text-white text-left">
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container ft-outfit">
     <div class="row mt-5">
         <div class="col-md-12">
             <h2 class="text-center">Todos os temas</h2>
@@ -43,8 +43,9 @@
                   <tr *ngFor='let tema of listaTemas'>
                     <th>{{tema.id}}</th>
                     <td>{{tema.descricao}}</td>
-                    <td class="d-flex justify-content-end"><button class="btn btn-info mr-3">Editar</button>
-                      <button class="btn btn-danger">Apagar</button>
+                    <td class="d-flex justify-content-end">
+                        <button class="btn btn-info mr-3" [routerLink]="['/tema-edit', tema.id]">Editar</button>
+                        <button class="btn btn-danger" [routerLink]="['/tema-delete', tema.id]">Apagar</button>
                     </td>
                   </tr>
                 </tbody>
