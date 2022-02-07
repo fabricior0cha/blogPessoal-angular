@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Postagem } from 'src/app/model/Postagem';
 import { Tema } from 'src/app/model/Tema';
+import { AlertasService } from 'src/app/services/alertas.service';
 import { PostagemService } from 'src/app/services/postagem.service';
 import { TemaService } from 'src/app/services/tema.service';
 import { environment } from 'src/environments/environment.prod';
@@ -25,7 +26,8 @@ export class PostagemEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private postagemService: PostagemService,
-    private temaService: TemaService
+    private temaService: TemaService,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class PostagemEditComponent implements OnInit {
     window.scroll(0,0)
     
     if(environment.token == ''){
-      alert('Sua sessão expirou, faça login novamente.')
+      this.alertas.showAlertDanger('Sua sessão expirou, faça login novamente.')
       this.router.navigate(['entrar'])
     }
 
@@ -56,7 +58,7 @@ export class PostagemEditComponent implements OnInit {
       this.postagem.tema = this.tema
       this.postagemService.putPostagem(this.postagem).subscribe((resp: Postagem) =>{
         this.postagem = resp
-        alert('Postagem atualizada com sucesso')
+        this.alertas.showAlertSuccess('Postagem atualizada com sucesso')
         this.router.navigate(['/inicio'])
       })
 
