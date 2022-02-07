@@ -18,16 +18,20 @@ export class InicioComponent implements OnInit {
 
   postagem: Postagem = new Postagem()
   listaPostagens: Postagem[]
+  tituloPost: string
 
   listaTemas: Tema[]
   idTema: number
   tema: Tema
+  nomeTema : string
 
   user: User = new User()
   idUser = environment.id
 
   key: 'date'
   reverse: true
+
+
 
   constructor(
     private router: Router,
@@ -90,4 +94,29 @@ export class InicioComponent implements OnInit {
     })
 
   }
+
+  findByTituloPostagem(){
+    
+    if(this.tituloPost == ''){
+      this.getAllPostagens()
+    }
+    else{
+      this.postagemService.getByTituloPostagem(this.tituloPost).subscribe((resp: Postagem[]) =>{
+        this.listaPostagens = resp
+      })
+    }
+   
+  }
+
+  findByNomeTema(){
+    if(this.nomeTema == ''){
+      this.findAllTemas()
+    }
+    else {
+      this.temaService.getByNomeTema(this.nomeTema).subscribe((resp: Tema[]) =>{
+        this.listaTemas = resp
+      })
+    }
+  }
+
 }
